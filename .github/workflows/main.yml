@@ -2,9 +2,9 @@ name: Go CI/CD Workflow
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "final-sprint" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "final-sprint" ]
   workflow_dispatch:
   push:
     tags:
