@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ "master" ]
   workflow_dispatch:
+  push:
+    tags:
+      - 'v*.*.*'
 
 jobs:
   test:
@@ -25,6 +28,18 @@ jobs:
 
     - name: Run tests
       run: go test -v ./...
+
+  lint:
+    name: Run Go Linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Go linter
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
 
   publish:
     name: Publish to DockerHub
