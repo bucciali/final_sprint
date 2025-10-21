@@ -2,9 +2,11 @@ name: Go CI/CD Workflow
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "final-sprint" ]
+    tags:
+      - 'v*.*.*'
   pull_request:
-    branches: [ "master" ]
+    branches: [ "final-sprint" ]
   workflow_dispatch:
 
 jobs:
@@ -25,6 +27,18 @@ jobs:
 
     - name: Run tests
       run: go test -v ./...
+
+  lint:
+    name: Run Go Linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Go linter
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
 
   publish:
     name: Publish to DockerHub
